@@ -72,7 +72,7 @@ export default function Home() {
           const now = Date.now();
 
           // If we're in a pause period, don't move
-          if (now < cursor.pauseUntil) {
+          if (now < cursor.pauseUntil || cursor.opacity < 1) {
             return cursor;
           }
 
@@ -124,7 +124,7 @@ export default function Home() {
 
   return (
     <div
-      className="min-h-screen bg-white relative h-screen overflow-hidden"
+      className="min-h-screen bg-white relative h-dvh overflow-hidden"
       style={{
         backgroundImage: `
       radial-gradient(ellipse at center, transparent 80%, rgba(255, 255, 255, 0.5) 70%, rgba(255, 255, 255, 0.95) 100%),
