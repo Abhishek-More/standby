@@ -1,127 +1,8 @@
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { AiOutlineBuild } from "react-icons/ai";
-import { BsCursorFill } from "react-icons/bs";
-import { useState, useEffect } from "react";
-import { FaXTwitter } from "react-icons/fa6";
-import Link from "next/link";
-import { FaGithub } from "react-icons/fa";
 import { CompanyMarquee } from "@/components/CompanyMarquee";
-
-interface CursorState {
-  x: number;
-  y: number;
-  targetX: number;
-  targetY: number;
-  isMoving: boolean;
-  pauseUntil: number;
-  opacity: number;
-}
+import { Cursors } from "@/components/Cursors";
+import { Navbar } from "@/components/Navbar";
 
 export default function Home() {
-  const [cursors, setCursors] = useState<CursorState[]>([
-    {
-      x: 80,
-      y: 80,
-      targetX: 80,
-      targetY: 80,
-      isMoving: false,
-      pauseUntil: Date.now() + 1000,
-      opacity: 0,
-    },
-    {
-      x: 300,
-      y: 160,
-      targetX: 300,
-      targetY: 160,
-      isMoving: false,
-      pauseUntil: Date.now() + 2000,
-      opacity: 0,
-    },
-    {
-      x: 500,
-      y: 400,
-      targetX: 500,
-      targetY: 400,
-      isMoving: false,
-      pauseUntil: Date.now() + 3000,
-      opacity: 0,
-    },
-  ]);
-
-  const getRandomTarget = () => {
-    const margin = 60;
-    return {
-      x: margin + Math.random() * (window.innerWidth - margin * 2),
-      y: margin + Math.random() * (window.innerHeight - margin * 2),
-    };
-  };
-
-  useEffect(() => {
-    const fadeInTimer = setTimeout(() => {
-      setCursors((prev) => prev.map((cursor) => ({ ...cursor, opacity: 1 })));
-    }, 2000);
-
-    return () => clearTimeout(fadeInTimer);
-  }, []);
-
-  useEffect(() => {
-    const animateCursors = () => {
-      setCursors((prev) =>
-        prev.map((cursor) => {
-          const now = Date.now();
-
-          // If we're in a pause period, don't move
-          if (now < cursor.pauseUntil || cursor.opacity < 1) {
-            return cursor;
-          }
-
-          // If we're not moving and pause is over, pick a new target
-          if (!cursor.isMoving) {
-            const target = getRandomTarget();
-            return {
-              ...cursor,
-              targetX: target.x,
-              targetY: target.y,
-              isMoving: true,
-            };
-          }
-
-          // Move towards target
-          const dx = cursor.targetX - cursor.x;
-          const dy = cursor.targetY - cursor.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          //
-          // // If we're close to target, stop and pause
-          if (distance < 1) {
-            const pauseDuration = 800 + Math.random() * 2000; // 0.8-2.3 seconds
-            return {
-              ...cursor,
-              x: cursor.targetX,
-              y: cursor.targetY,
-              isMoving: false,
-              pauseUntil: now + pauseDuration,
-            };
-          }
-
-          // Move towards target with easing
-          const speed = 0.02 + Math.random() * 0.01; // Variable speed between cursors
-          const newX = cursor.x + dx * speed;
-          const newY = cursor.y + dy * speed;
-
-          return {
-            ...cursor,
-            x: newX,
-            y: newY,
-          };
-        }),
-      );
-    };
-
-    const interval = setInterval(animateCursors, 16); // ~60fps for smooth movement
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div
       className="min-h-screen bg-white relative h-dvh overflow-hidden"
@@ -134,40 +15,9 @@ export default function Home() {
       }}
     >
       <div className="relative container mx-auto px-4 py-8 h-full">
-        <div className="absolute flex justify-between items-center top-4 left-4 right-4">
-          <div className="flex items-center gap-4">
-            <AiOutlineBuild className="text-4xl text-[#ee6055]" />
-            <p className="text-black/80 font-bold">Scaffold</p>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link href="https://x.com">
-              <FaXTwitter className="text-black text-lg hover:text-[#ee6055] transition-colors" />
-            </Link>
-            <Link href="https://github.com/Abhishek-More/standby">
-              <FaGithub className="text-black text-lg hover:text-[#ee6055] transition-colors" />
-            </Link>
-          </div>
-        </div>
+        <Navbar />
+        <Cursors />
 
-        {cursors.map((cursor, index) => (
-          <div
-            key={index}
-            className="absolute text-[#000000] text-2xl pointer-events-none transition-opacity duration-300"
-            style={{
-              left: `${cursor.x}px`,
-              top: `${cursor.y}px`,
-              opacity: cursor.opacity,
-            }}
-          >
-            <BsCursorFill
-              className="text-[#ee6055] scale-x-[-1] w-4 h-4"
-              strokeWidth="1"
-              stroke="black"
-            />
-          </div>
-        ))}
-
-        {/* Main content */}
         <div className="flex flex-col justify-center max-w-4xl mx-auto text-center h-full mt-16">
           <div>
             <h1 className="text-6xl md:text-7xl font-bold mb-4 leading-none">
@@ -186,26 +36,15 @@ export default function Home() {
               hiring.
             </p>
 
-            {/* Email signup form */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-4 max-w-md mx-auto">
-              <Input
-                type="email"
-                placeholder="your email"
-                className="h-10 focus:border-red-500 focus:outline-red-500 outline-1 bg-white text-black rounded-sm"
-              />
-              <Button className="bg-[#ee6055] hover:bg-[#ee6055]/90 text-white h-10 px-8 font-bold whitespace-nowrap cursor-pointer w-full sm:w-auto rounded-sm">
-                join the waitlist
-              </Button>
-            </div>
+            <Signup />
 
-            {/* Join count */}
             <p className="text-[#6b7280] text-lg">
               join <span className="text-[#ee6055] font-semibold">130</span>{" "}
               others waiting for scaffold!
             </p>
           </div>
 
-          <div className="">
+          <div>
             <p className="text-[#6b7280] text-lg mt-32 mb-4 text-center">
               built by engineers from
             </p>
@@ -213,67 +52,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <style jsx>{`
-        @keyframes float1 {
-          0% {
-            transform: translate(0, 0);
-          }
-          25% {
-            transform: translate(150px, -50px);
-          }
-          50% {
-            transform: translate(300px, 100px);
-          }
-          75% {
-            transform: translate(100px, 200px);
-          }
-          100% {
-            transform: translate(0, 0);
-          }
-        }
-
-        @keyframes float2 {
-          0% {
-            transform: translate(0, 0);
-          }
-          20% {
-            transform: translate(-100px, 80px);
-          }
-          40% {
-            transform: translate(-200px, -20px);
-          }
-          60% {
-            transform: translate(-80px, -120px);
-          }
-          80% {
-            transform: translate(50px, -50px);
-          }
-          100% {
-            transform: translate(0, 0);
-          }
-        }
-
-        @keyframes float3 {
-          0% {
-            transform: translate(0, 0);
-          }
-          30% {
-            transform: translate(-120px, -80px);
-          }
-          50% {
-            transform: translate(-250px, 50px);
-          }
-          70% {
-            transform: translate(-100px, 150px);
-          }
-          90% {
-            transform: translate(80px, 80px);
-          }
-          100% {
-            transform: translate(0, 0);
-          }
-        }
-      `}</style>
     </div>
   );
 }
