@@ -6,7 +6,7 @@ import { Signup } from "@/components/Signup";
 export default function Home() {
   return (
     <div
-      className="min-h-screen bg-white relative"
+      className="min-h-screen bg-white relative h-dvh overflow-hidden"
       style={{
         backgroundImage: `
       radial-gradient(ellipse at center, transparent 80%, rgba(255, 255, 255, 0.5) 70%, rgba(255, 255, 255, 0.95) 100%),
