@@ -1,21 +1,6 @@
 import Marquee from "react-fast-marquee";
 import Image from "next/image";
 export const CompanyMarquee = () => {
-  //amazon
-  //google
-  //MIT
-  //Kleiner Perkins
-  //Dripos
-  //TAMUhack
-  const images = [
-    "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
-  ];
-
   return (
     <Marquee className="bg-white border rounded-sm py-4 w-full" gradient>
       <Image

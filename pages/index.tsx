@@ -1,4 +1,3 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AiOutlineBuild } from "react-icons/ai";
@@ -7,18 +6,7 @@ import { useState, useEffect } from "react";
 import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
-import Marquee from "react-fast-marquee";
 import { CompanyMarquee } from "@/components/CompanyMarquee";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 interface CursorState {
   x: number;
@@ -80,7 +68,7 @@ export default function Home() {
   useEffect(() => {
     const animateCursors = () => {
       setCursors((prev) =>
-        prev.map((cursor, index) => {
+        prev.map((cursor) => {
           const now = Date.now();
 
           // If we're in a pause period, don't move
@@ -133,8 +121,6 @@ export default function Home() {
     const interval = setInterval(animateCursors, 16); // ~60fps for smooth movement
     return () => clearInterval(interval);
   }, []);
-
-  const dateNow = new Date();
 
   return (
     <div
@@ -196,7 +182,7 @@ export default function Home() {
                 broken{" "}
               </span>
               . no more competitive programming or google doc awkwardness —
-              starting with system design, we're revolutionizing technical
+              starting with system design, we&apos;re revolutionizing technical
               hiring.
             </p>
 
