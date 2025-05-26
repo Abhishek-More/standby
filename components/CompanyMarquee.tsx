@@ -2,7 +2,10 @@ import Marquee from "react-fast-marquee";
 import Image from "next/image";
 export const CompanyMarquee = () => {
   return (
-    <Marquee className="bg-white border rounded-sm py-4 w-full" gradient>
+    <Marquee
+      className="bg-white border rounded-sm py-4 w-full overflow-hidden"
+      gradient
+    >
       <Image
         src={
           "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
