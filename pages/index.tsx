@@ -27,6 +27,7 @@ interface CursorState {
   targetY: number;
   isMoving: boolean;
   pauseUntil: number;
+  opacity: number;
 }
 
 export default function Home() {
@@ -38,6 +39,7 @@ export default function Home() {
       targetY: 80,
       isMoving: false,
       pauseUntil: Date.now() + 1000,
+      opacity: 0,
     },
     {
       x: 300,
@@ -46,6 +48,7 @@ export default function Home() {
       targetY: 160,
       isMoving: false,
       pauseUntil: Date.now() + 2000,
+      opacity: 0,
     },
     {
       x: 500,
@@ -54,6 +57,7 @@ export default function Home() {
       targetY: 400,
       isMoving: false,
       pauseUntil: Date.now() + 3000,
+      opacity: 0,
     },
   ]);
 
@@ -64,6 +68,14 @@ export default function Home() {
       y: margin + Math.random() * (window.innerHeight - margin * 2),
     };
   };
+
+  useEffect(() => {
+    const fadeInTimer = setTimeout(() => {
+      setCursors((prev) => prev.map((cursor) => ({ ...cursor, opacity: 1 })));
+    }, 2000);
+
+    return () => clearTimeout(fadeInTimer);
+  }, []);
 
   useEffect(() => {
     const animateCursors = () => {
@@ -145,7 +157,7 @@ export default function Home() {
             <Link href="https://x.com">
               <FaXTwitter className="text-black text-lg hover:text-[#ee6055] transition-colors" />
             </Link>
-            <Link href="https://github.com">
+            <Link href="https://github.com/Abhishek-More/standby">
               <FaGithub className="text-black text-lg hover:text-[#ee6055] transition-colors" />
             </Link>
           </div>
@@ -158,6 +170,7 @@ export default function Home() {
             style={{
               left: `${cursor.x}px`,
               top: `${cursor.y}px`,
+              opacity: cursor.opacity,
             }}
           >
             <BsCursorFill
