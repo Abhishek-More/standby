@@ -1,6 +1,7 @@
 import { CompanyMarquee } from "@/components/CompanyMarquee";
 import { Cursors } from "@/components/Cursors";
 import { Navbar } from "@/components/Navbar";
+import { Signup } from "@/components/Signup";
 
 export default function Home() {
   return (
