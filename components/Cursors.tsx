@@ -1,5 +1,5 @@
-import { BsCursorFill } from "react-icons/bs";
 import { useState, useEffect } from "react";
+import { BsCursorFill } from "react-icons/bs";
 
 interface CursorState {
   x: number;
@@ -10,6 +10,13 @@ interface CursorState {
   pauseUntil: number;
   opacity: number;
   color?: string;
+  // New properties for natural movement
+  controlX: number;
+  controlY: number;
+  startX: number;
+  startY: number;
+  progress: number;
+  speed: number;
 }
 
 export const Cursors = () => {
@@ -23,6 +30,12 @@ export const Cursors = () => {
       isMoving: false,
       pauseUntil: Date.now() + 1000,
       opacity: 0,
+      controlX: 80,
+      controlY: 80,
+      startX: 80,
+      startY: 80,
+      progress: 0,
+      speed: 0.008 + Math.random() * 0.004,
     },
     {
       x: 300,
@@ -33,6 +46,12 @@ export const Cursors = () => {
       isMoving: false,
       pauseUntil: Date.now() + 2000,
       opacity: 0,
+      controlX: 300,
+      controlY: 160,
+      startX: 300,
+      startY: 160,
+      progress: 0,
+      speed: 0.008 + Math.random() * 0.004,
     },
     {
       x: 500,
@@ -43,6 +62,12 @@ export const Cursors = () => {
       isMoving: false,
       pauseUntil: Date.now() + 3000,
       opacity: 0,
+      controlX: 500,
+      controlY: 400,
+      startX: 500,
+      startY: 400,
+      progress: 0,
+      speed: 0.008 + Math.random() * 0.004,
     },
   ]);
 
@@ -54,11 +79,30 @@ export const Cursors = () => {
     };
   };
 
+  // Easing function for smooth acceleration/deceleration
+  const easeInOutCubic = (t: number): number => {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  };
+
+  // Quadratic Bezier curve calculation
+  const getPointOnCurve = (
+    start: number,
+    control: number,
+    end: number,
+    t: number,
+  ): number => {
+    const easedT = easeInOutCubic(t);
+    return (
+      Math.pow(1 - easedT, 2) * start +
+      2 * (1 - easedT) * easedT * control +
+      Math.pow(easedT, 2) * end
+    );
+  };
+
   useEffect(() => {
     const fadeInTimer = setTimeout(() => {
       setCursors((prev) => prev.map((cursor) => ({ ...cursor, opacity: 1 })));
     }, 2000);
-
     return () => clearTimeout(fadeInTimer);
   }, []);
 
@@ -74,19 +118,35 @@ export const Cursors = () => {
 
           if (!cursor.isMoving) {
             const target = getRandomTarget();
+            // Create a curved path by adding a control point
+            const midX = (cursor.x + target.x) / 2;
+            const midY = (cursor.y + target.y) / 2;
+
+            // Add some randomness to the control point for curved movement
+            const curvature = 50 + Math.random() * 100;
+            const angle = Math.random() * Math.PI * 2;
+            const controlX = midX + Math.cos(angle) * curvature;
+            const controlY = midY + Math.sin(angle) * curvature;
+
             return {
               ...cursor,
               targetX: target.x,
               targetY: target.y,
+              controlX,
+              controlY,
+              startX: cursor.x,
+              startY: cursor.y,
               isMoving: true,
+              progress: 0,
+              speed: 0.004 + Math.random() * 0.004, // Randomize speed for each movement
             };
           }
 
-          const dx = cursor.targetX - cursor.x;
-          const dy = cursor.targetY - cursor.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+          // Animate along the curve
+          const newProgress = Math.min(cursor.progress + cursor.speed, 1);
 
-          if (distance < 1) {
+          if (newProgress >= 1) {
+            // Movement complete, pause
             const pauseDuration = 800 + Math.random() * 2000;
             return {
               ...cursor,
@@ -94,17 +154,29 @@ export const Cursors = () => {
               y: cursor.targetY,
               isMoving: false,
               pauseUntil: now + pauseDuration,
+              progress: 0,
             };
           }
 
-          const speed = 0.02 + Math.random() * 0.01;
-          const newX = cursor.x + dx * speed;
-          const newY = cursor.y + dy * speed;
+          // Calculate position along the curve
+          const newX = getPointOnCurve(
+            cursor.startX,
+            cursor.controlX,
+            cursor.targetX,
+            newProgress,
+          );
+          const newY = getPointOnCurve(
+            cursor.startY,
+            cursor.controlY,
+            cursor.targetY,
+            newProgress,
+          );
 
           return {
             ...cursor,
             x: newX,
             y: newY,
+            progress: newProgress,
           };
         }),
       );
@@ -113,29 +185,27 @@ export const Cursors = () => {
     const interval = setInterval(animateCursors, 16);
     return () => clearInterval(interval);
   }, []);
-
   return (
     <div className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none">
-      {cursors.map((cursor, index) => {
-        return (
-          <div
-            key={index}
-            className="absolute text-2xl pointer-events-none transition-opacity duration-300"
+      {cursors.map((cursor, index) => (
+        <div
+          key={index}
+          className="absolute pointer-events-none transition-opacity duration-300"
+          style={{
+            left: `${cursor.x}px`,
+            top: `${cursor.y}px`,
+            opacity: cursor.opacity,
+            transform: "translate(-10px, -10px)", // Center the cursor
+          }}
+        >
+          <BsCursorFill
+            className="scale-x-[-1] w-5 h-5"
             style={{
-              left: `${cursor.x}px`,
-              top: `${cursor.y}px`,
-              opacity: cursor.opacity,
+              color: cursor.color ?? "#ee6055",
             }}
-          >
-            <BsCursorFill
-              className="scale-x-[-1] w-5 h-5"
-              style={{
-                color: cursor.color ?? "#ee6055",
-              }}
-            />
-          </div>
-        );
-      })}
+          />
+        </div>
+      ))}
     </div>
   );
 };
