@@ -9,6 +9,7 @@ interface CursorState {
   isMoving: boolean;
   pauseUntil: number;
   opacity: number;
+  color?: string;
 }
 
 export const Cursors = () => {
@@ -16,6 +17,7 @@ export const Cursors = () => {
     {
       x: 80,
       y: 80,
+      color: "#ec003f",
       targetX: 80,
       targetY: 80,
       isMoving: false,
@@ -25,6 +27,7 @@ export const Cursors = () => {
     {
       x: 300,
       y: 160,
+      color: "#8e51ff",
       targetX: 300,
       targetY: 160,
       isMoving: false,
@@ -34,6 +37,7 @@ export const Cursors = () => {
     {
       x: 500,
       y: 400,
+      color: "#74d4ff",
       targetX: 500,
       targetY: 400,
       isMoving: false,
@@ -112,23 +116,26 @@ export const Cursors = () => {
 
   return (
     <>
-      {cursors.map((cursor, index) => (
-        <div
-          key={index}
-          className="absolute text-[#000000] text-2xl pointer-events-none transition-opacity duration-300"
-          style={{
-            left: `${cursor.x}px`,
-            top: `${cursor.y}px`,
-            opacity: cursor.opacity,
-          }}
-        >
-          <BsCursorFill
-            className="text-[#ee6055] scale-x-[-1] w-4 h-4"
-            strokeWidth="1"
-            stroke="black"
-          />
-        </div>
-      ))}
+      {cursors.map((cursor, index) => {
+        return (
+          <div
+            key={index}
+            className="absolute text-2xl pointer-events-none transition-opacity duration-300"
+            style={{
+              left: `${cursor.x}px`,
+              top: `${cursor.y}px`,
+              opacity: cursor.opacity,
+            }}
+          >
+            <BsCursorFill
+              className="scale-x-[-1] w-5 h-5"
+              style={{
+                color: cursor.color ?? "#ee6055",
+              }}
+            />
+          </div>
+        );
+      })}
     </>
   );
 };

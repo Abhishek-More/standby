@@ -3,7 +3,7 @@ import Image from "next/image";
 export const CompanyMarquee = () => {
   return (
     <Marquee
-      className="bg-white border rounded-sm py-4 w-full max-h-[60px] overflow-hidden overscroll-none"
+      className="bg-white border rounded-sm py-4 w-full overflow-hidden overscroll-none"
       gradient
     >
       <Image
