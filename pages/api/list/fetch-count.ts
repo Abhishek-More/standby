@@ -16,7 +16,7 @@ export default async function handler(
   try {
     const count = await prisma.subscriber.count();
     return res.status(200).json({ count });
-  } catch (error) {
+  } catch {
     return res.status(500).json({ count: 0 });
   }
 }

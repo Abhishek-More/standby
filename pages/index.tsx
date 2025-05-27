@@ -3,7 +3,6 @@ import { Cursors } from "@/components/Cursors";
 import { Navbar } from "@/components/Navbar";
 import { Signup } from "@/components/Signup";
 import { Subscribers } from "@/components/Subscribers";
-import Marquee from "react-fast-marquee";
 
 export default function Home() {
   return (

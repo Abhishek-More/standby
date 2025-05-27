@@ -1,9 +1,8 @@
-import { AiFillMail, AiOutlineBuild, AiOutlineMail } from "react-icons/ai";
+import { AiFillMail, AiOutlineBuild } from "react-icons/ai";
 import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
 import { IoCalendarSharp } from "react-icons/io5";
 import { FaGithub } from "react-icons/fa";
-import { Button } from "./ui/button";
 import { Toaster, toast } from "react-hot-toast";
 import { CONTACT_EMAIL } from "@/lib/consts";
 
