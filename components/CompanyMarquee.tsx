@@ -12,7 +12,7 @@ export const CompanyMarquee = () => {
         }
         alt="Company Logo"
         width={100}
-        height={100}
+        height={40}
         className="mx-4 grayscale hover:grayscale-0 transition duration-300"
       />
 
@@ -22,7 +22,7 @@ export const CompanyMarquee = () => {
         }
         alt="Company Logo"
         width={100}
-        height={100}
+        height={40}
         className="mx-4 grayscale hover:grayscale-0 transition duration-300"
       />
 
@@ -32,7 +32,7 @@ export const CompanyMarquee = () => {
         }
         alt="Company Logo"
         width={100}
-        height={100}
+        height={40}
         className="mx-4 grayscale hover:grayscale-0 transition duration-300"
       />
 
@@ -42,7 +42,7 @@ export const CompanyMarquee = () => {
         }
         alt="Company Logo"
         width={200}
-        height={100}
+        height={40}
         className="mx-4 grayscale hover:grayscale-0 transition duration-300"
       />
 
@@ -50,7 +50,7 @@ export const CompanyMarquee = () => {
         src={"/dripos.png"}
         alt="Company Logo"
         width={100}
-        height={100}
+        height={40}
         className="mx-4 grayscale hover:grayscale-0 transition duration-300"
       />
 
@@ -58,7 +58,7 @@ export const CompanyMarquee = () => {
         src={"https://upload.wikimedia.org/wikipedia/commons/0/0c/MIT_logo.svg"}
         alt="Company Logo"
         width={50}
-        height={100}
+        height={40}
         className="mx-4 grayscale hover:grayscale-0 transition duration-300"
       />
 
@@ -66,7 +66,7 @@ export const CompanyMarquee = () => {
         src={"https://tamuhack.org/static/assets/tamuhacfull_k.svg"}
         alt="Company Logo"
         width={100}
-        height={100}
+        height={40}
         className="mx-4 grayscale hover:grayscale-0 transition duration-300"
       />
     </Marquee>

@@ -14,7 +14,7 @@ export const Navbar = () => {
   };
 
   return (
-    <div className="absolute flex justify-between items-center top-4 left-4 right-4">
+    <div className="flex justify-between items-center mt-4 max-w-6xl mx-auto">
       <Toaster position="bottom-right" />
       <div className="flex items-center gap-4">
         <AiOutlineBuild className="text-4xl text-[#B864E9]" />

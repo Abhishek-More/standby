@@ -115,7 +115,7 @@ export const Cursors = () => {
   }, []);
 
   return (
-    <>
+    <div className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none">
       {cursors.map((cursor, index) => {
         return (
           <div
@@ -136,6 +136,6 @@ export const Cursors = () => {
           </div>
         );
       })}
-    </>
+    </div>
   );
 };

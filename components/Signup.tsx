@@ -37,16 +37,16 @@ export const Signup = () => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-4 max-w-md mx-auto">
+    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-4 w-full">
       <Toaster position="bottom-right" />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto items-center"
+        className="flex flex-col sm:flex-row gap-4 w-full mx-auto items-center max-w-[400px]"
       >
         <Input
           type="email"
           placeholder="your email"
-          className={`h-10 focus:border-red-500 focus:outline-red-500 outline-1 bg-white text-black rounded-sm w-3xl`}
+          className={`h-10 focus:border-red-500 focus:outline-red-500 outline-1 bg-white text-black rounded-sm w-full`}
           aria-invalid={errors.email ? "true" : "false"}
           {...register("email", { required: true })}
         />
