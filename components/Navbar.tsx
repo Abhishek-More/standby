@@ -2,7 +2,6 @@ import { AiFillMail, AiOutlineBuild } from "react-icons/ai";
 import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
 import { IoCalendarSharp } from "react-icons/io5";
-import { FaGithub } from "react-icons/fa";
 import { Toaster, toast } from "react-hot-toast";
 import { CONTACT_EMAIL } from "@/lib/consts";
 
@@ -36,13 +35,6 @@ export const Navbar = () => {
           rel="noreferrer noopener"
         >
           <FaXTwitter className="text-black text-lg hover:text-[#B864E9] transition-colors" />
-        </Link>
-        <Link
-          href="https://github.com/Abhishek-More/standby"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          <FaGithub className="text-black text-lg hover:text-[#B864E9] transition-colors" />
         </Link>
       </div>
     </div>
