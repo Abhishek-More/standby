@@ -3,7 +3,6 @@ import { Cursors } from "@/components/Cursors";
 import { Navbar } from "@/components/Navbar";
 import { Signup } from "@/components/Signup";
 import { Subscribers } from "@/components/Subscribers";
-import { ReactFlow } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import Head from "next/head";
 import { Metadata } from "next";
