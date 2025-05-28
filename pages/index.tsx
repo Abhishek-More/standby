@@ -15,6 +15,9 @@ export default function Home() {
         <meta property="og:url" content="https://interviewing.sucks" />
         <meta property="og:type" content="website" />
       </Head>
+      <div className="flex flex-col justify-center h-10 w-screen bg-[#B864E9] text-white">
+        <p className="text-center text-">sign up now for early access!</p>
+      </div>
       <div
         className="bg-white relative overflow-x-hidden px-4 min-h-screen"
         style={{
