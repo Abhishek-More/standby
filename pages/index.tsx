@@ -3,7 +3,10 @@ import { Cursors } from "@/components/Cursors";
 import { Navbar } from "@/components/Navbar";
 import { Signup } from "@/components/Signup";
 import { Subscribers } from "@/components/Subscribers";
+import { ReactFlow } from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
 import Head from "next/head";
+import { Metadata } from "next";
 
 export default function Home() {
   return (
@@ -59,3 +62,32 @@ export default function Home() {
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Standby for Scaffold",
+  description:
+    "a new way to interview: traditional interviews are broken. no more competitive programming or google doc awkwardness — starting with system design, we're revolutionizing technical hiring.",
+  keywords: [
+    "interview",
+    "leetcode",
+    "system design",
+    "scaffold",
+    "comptetitive programming",
+    "software engineering",
+    "computer science",
+  ],
+  openGraph: {
+    url: "https://interviewing.sucks",
+    type: "website",
+    title: "Standby for Scaffold",
+    description: "a new way to interview",
+    images: [
+      {
+        url: "/ogimage.png",
+        width: 1200,
+        height: 628,
+        alt: "Scaffold",
+      },
+    ],
+  },
+};
