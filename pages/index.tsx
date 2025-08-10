@@ -2,7 +2,6 @@ import { CompanyMarquee } from "@/components/CompanyMarquee";
 import { Cursors } from "@/components/Cursors";
 import { Navbar } from "@/components/Navbar";
 import { Signup } from "@/components/Signup";
-import { Subscribers } from "@/components/Subscribers";
 import "@xyflow/react/dist/style.css";
 import Head from "next/head";
 import { Metadata } from "next";
@@ -46,9 +45,10 @@ export default function Home() {
             starting with system design, we&apos;re revolutionizing technical
             hiring.
           </p>
+        </div>
 
+        <div className="max-w-4xl mx-auto my-24">
           <Signup />
-          <Subscribers />
         </div>
 
         <div className="max-w-4xl mx-auto my-16">
